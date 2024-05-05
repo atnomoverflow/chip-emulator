@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.29.2)
+project(chip8 VERSION 0.1.0 LANGUAGES C CXX)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_DEBUG_POSTFIX d)
+find_package(SDL2 REQUIRED)
+include(CTest)
+enable_testing()
+add_executable(chip8 src/main.cpp)
+set_target_properties(chip8 PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
+target_link_libraries(chip8 PRIVATE SDL2::SDL2)
+
+include(CPack)
