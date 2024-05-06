@@ -1,4 +1,6 @@
-#include "Emulator/Emulator.cpp"
+#include <Emulator.hpp>
+
+
 #include <stdio.h>
 int main(int argc, char **argv)
 {
@@ -9,10 +11,11 @@ int main(int argc, char **argv)
         return 1;
     }
     char *rom_name = argv[1];
-    Config conf;
-    Memory memory(conf);
-    CPU cpu(memory, conf);
-    Emulator emulator(cpu, memory, conf, rom_name);
+    Emulator::Config conf;
+    conf.CLOCK=700; // 700 inst / sc
+    Emulator::Memory memory(conf);
+    Emulator::CPU cpu(memory, conf);
+    Emulator::Emulator emulator(cpu, memory, conf, rom_name);
 
     if (!emulator.init())
     {
