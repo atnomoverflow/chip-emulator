@@ -44,7 +44,8 @@ namespace Emulator
             case 0x0EE:
                 return RETURN_FROM_SUB;
             default:
-                return EXECUTE_SUB_NNN;
+                break;
+                // return EXECUTE_SUB_NNN;
             }
         case 0x01:
             return JUMP_NNN;
@@ -369,6 +370,7 @@ namespace Emulator
         {
             m_memory.DISPLAY[i] = false;
         }
+        draw = true;
     }
 
     void CPU::return_from_sub()
@@ -395,28 +397,30 @@ namespace Emulator
 
     void CPU::set_vx_to_keypad()
     {
-        static bool any_key_pressed = false;
         static uint8_t key = 0xFF;
-        for (uint8_t i = 0; key == 0xFF && i < 16; i++)
+
+        if (key < 16)
         {
-            if (m_KEY_PAD[i])
+            for (uint8_t i = 0; i < 16; ++i)
             {
-                any_key_pressed = true;
-                key = i;
-                break;
+                if (KEY_PAD[i])
+                {
+                    key = i;
+                    return;
+                }
             }
-        }
-        if (!any_key_pressed)
             m_PC -= 2;
+        }
         else
         {
-            if (m_KEY_PAD[key])
+            if (KEY_PAD[key])
+            {
                 m_PC -= 2;
+            }
             else
             {
                 m_V[m_current_instruction.X] = key;
                 key = 0xFF;
-                any_key_pressed = false;
             }
         }
     }
@@ -454,6 +458,7 @@ namespace Emulator
             if (++y >= m_config.HEIGHT)
                 break;
         }
+        draw = true;
     }
 
     void CPU::skip_if_vx_eq_nn()
@@ -573,7 +578,7 @@ namespace Emulator
     void CPU::skip_if_key_pressed()
     {
         // inc PC by 2 if key pressed is == VX
-        if (m_KEY_PAD[m_V[m_current_instruction.X]])
+        if (KEY_PAD[m_V[m_current_instruction.X]])
         {
             m_PC += 2;
         }
@@ -581,7 +586,7 @@ namespace Emulator
     void CPU::skip_if_key_not_pressed()
     {
         // inc PC by 2 if key pressed is != VX
-        if (!m_KEY_PAD[m_V[m_current_instruction.X]])
+        if (!KEY_PAD[m_V[m_current_instruction.X]])
         {
             m_PC += 2;
         }
@@ -600,7 +605,7 @@ namespace Emulator
     }
     void CPU::set_i_to_font_location()
     {
-        m_I = m_memory.get_data(m_memory.FONT_STARTING_POINT + m_V[m_current_instruction.X] * 5);
+        m_I = m_V[m_current_instruction.X] * 5;
     }
 
     // input handling logic
@@ -619,12 +624,4 @@ namespace Emulator
         return false;
     }
 
-    void CPU::set_keypad_on(uint8_t key_offset)
-    {
-        m_KEY_PAD[key_offset] = true;
-    }
-    void CPU::set_keypad_off(uint8_t key_offset)
-    {
-        m_KEY_PAD[key_offset] = false;
-    }
 } // namespace Emulator

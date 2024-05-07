@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     }
     char *rom_name = argv[1];
     Emulator::Config conf;
-    conf.CLOCK=700; // 700 inst / sc
+    conf.CLOCK=500; // 500 inst / sc
     Emulator::Memory memory(conf);
     Emulator::CPU cpu(memory, conf);
     Emulator::Emulator emulator(cpu, memory, conf, rom_name);

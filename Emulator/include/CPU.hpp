@@ -74,7 +74,7 @@ namespace Emulator
         Instruction m_current_instruction;
         Memory &m_memory;
         Config m_config;
-        bool m_KEY_PAD[16]={false};
+        
 
         void clear_screen();
         void return_from_sub();
@@ -112,11 +112,11 @@ namespace Emulator
         void set_i_to_font_location();
 
     public:
+        bool KEY_PAD[16]={false};
+        bool draw;
         OP_CODE decode();
         void execute(OP_CODE op);
         void fetch();
-        void set_keypad_on(uint8_t key_offset);
-        void set_keypad_off(uint8_t key_offset);
         void dec_delay_timer();
         bool dec_sound_timer();
         CPU(Memory &memory, Config &config);

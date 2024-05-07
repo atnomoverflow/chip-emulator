@@ -19,7 +19,6 @@ namespace Emulator
     public:
         bool *DISPLAY;
         const uint16_t ENTRY_POINT = 0x200;
-        const uint16_t FONT_STARTING_POINT = 0xF00;
         size_t display_size; // Store the size of the DISPLAY array
         Memory(Config &config);
         ~Memory();

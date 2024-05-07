@@ -115,55 +115,57 @@ namespace Emulator
                 switch (m_event.key.keysym.sym)
                 {
                 case SDLK_1:
-                    m_cpu.set_keypad_off(0x1);
+                {
+                    m_cpu.KEY_PAD[0x1] = false;
                     break;
+                }
                 case SDLK_2:
-                    m_cpu.set_keypad_off(0x2);
+                    m_cpu.KEY_PAD[0x2] = false;
                     break;
                 case SDLK_3:
-                    m_cpu.set_keypad_off(0x3);
+                    m_cpu.KEY_PAD[0x3] = false;
                     break;
                 case SDLK_4:
-                    m_cpu.set_keypad_off(0xC);
+                    m_cpu.KEY_PAD[0xC] = false;
                     break;
 
                 case SDLK_q:
-                    m_cpu.set_keypad_off(0x4);
+                    m_cpu.KEY_PAD[0x4] = false;
                     break;
                 case SDLK_w:
-                    m_cpu.set_keypad_off(0x5);
+                    m_cpu.KEY_PAD[0x5] = false;
                     break;
                 case SDLK_e:
-                    m_cpu.set_keypad_off(0x6);
+                    m_cpu.KEY_PAD[0x6] = false;
                     break;
                 case SDLK_r:
-                    m_cpu.set_keypad_off(0xD);
+                    m_cpu.KEY_PAD[0xD] = false;
                     break;
 
                 case SDLK_a:
-                    m_cpu.set_keypad_off(0x7);
+                    m_cpu.KEY_PAD[0x7] = false;
                     break;
                 case SDLK_s:
-                    m_cpu.set_keypad_off(0x8);
+                    m_cpu.KEY_PAD[0x8] = false;
                     break;
                 case SDLK_d:
-                    m_cpu.set_keypad_off(0x9);
+                    m_cpu.KEY_PAD[0x9] = false;
                     break;
                 case SDLK_f:
-                    m_cpu.set_keypad_off(0xE);
+                    m_cpu.KEY_PAD[0xE] = false;
                     break;
 
                 case SDLK_z:
-                    m_cpu.set_keypad_off(0xA);
+                    m_cpu.KEY_PAD[0xA] = false;
                     break;
                 case SDLK_x:
-                    m_cpu.set_keypad_off(0x0);
+                    m_cpu.KEY_PAD[0x0] = false;
                     break;
                 case SDLK_c:
-                    m_cpu.set_keypad_off(0xB);
+                    m_cpu.KEY_PAD[0xB] = false;
                     break;
                 case SDLK_v:
-                    m_cpu.set_keypad_off(0xF);
+                    m_cpu.KEY_PAD[0xF] = false;
                     break;
 
                 case SDLK_ESCAPE:
@@ -191,62 +193,67 @@ namespace Emulator
                 default:
                     break;
                 }
+                break;
             case SDL_KEYDOWN:
                 switch (m_event.key.keysym.sym)
                 {
                 case SDLK_1:
-                    m_cpu.set_keypad_on(0x1);
+                {
+                    m_cpu.KEY_PAD[0x1] = true;
                     break;
+                }
                 case SDLK_2:
-                    m_cpu.set_keypad_on(0x2);
+                    m_cpu.KEY_PAD[0x2] = true;
                     break;
                 case SDLK_3:
-                    m_cpu.set_keypad_on(0x3);
+                    m_cpu.KEY_PAD[0x3] = true;
                     break;
                 case SDLK_4:
-                    m_cpu.set_keypad_on(0xC);
+                    m_cpu.KEY_PAD[0xC] = true;
                     break;
 
                 case SDLK_q:
-                    m_cpu.set_keypad_on(0x4);
+                    m_cpu.KEY_PAD[0x4] = true;
                     break;
                 case SDLK_w:
-                    m_cpu.set_keypad_on(0x5);
+                    m_cpu.KEY_PAD[0x5] = true;
                     break;
                 case SDLK_e:
-                    m_cpu.set_keypad_on(0x6);
+                    m_cpu.KEY_PAD[0x6] = true;
                     break;
                 case SDLK_r:
-                    m_cpu.set_keypad_on(0xD);
+                    m_cpu.KEY_PAD[0xD] = true;
                     break;
 
                 case SDLK_a:
-                    m_cpu.set_keypad_on(0x7);
+                    m_cpu.KEY_PAD[0x7] = true;
                     break;
                 case SDLK_s:
-                    m_cpu.set_keypad_on(0x8);
+                    m_cpu.KEY_PAD[0x8] = true;
                     break;
                 case SDLK_d:
-                    m_cpu.set_keypad_on(0x9);
+                    m_cpu.KEY_PAD[0x9] = true;
                     break;
                 case SDLK_f:
-                    m_cpu.set_keypad_on(0xE);
+                    m_cpu.KEY_PAD[0xE] = true;
                     break;
+
                 case SDLK_z:
-                    m_cpu.set_keypad_on(0xA);
+                    m_cpu.KEY_PAD[0xA] = true;
                     break;
                 case SDLK_x:
-                    m_cpu.set_keypad_on(0x0);
+                    m_cpu.KEY_PAD[0x0] = true;
                     break;
                 case SDLK_c:
-                    m_cpu.set_keypad_on(0xB);
+                    m_cpu.KEY_PAD[0xB] = true;
                     break;
                 case SDLK_v:
-                    m_cpu.set_keypad_on(0xF);
+                    m_cpu.KEY_PAD[0xF] = true;
                     break;
                 default:
                     break;
                 }
+                break;
             default:
                 break;
             }
@@ -285,6 +292,8 @@ namespace Emulator
                 // draw sprit pixel
                 SDL_SetRenderDrawColor(m_renderer, fg_r, fg_g, fg_b, fg_a);
                 SDL_RenderFillRect(m_renderer, &pixel);
+                SDL_SetRenderDrawColor(m_renderer, bg_r, bg_g, bg_b, bg_a);
+                SDL_RenderDrawRect(m_renderer, &pixel);
             }
             else
             {
@@ -312,9 +321,13 @@ namespace Emulator
                 m_cpu.execute(op);
             }
             const uint64_t now = SDL_GetPerformanceCounter();
-            const double timer = (double)((now - start) / 1000) / SDL_GetPerformanceFrequency();
+            const double timer = (double)((now - start) * 1000) / SDL_GetPerformanceFrequency();
             SDL_Delay(16.67f > timer ? 16.67f - timer : 0);
-            update_screan();
+            if (m_cpu.draw)
+            {
+                update_screan();
+                m_cpu.draw = false;
+            }
             update_timer();
         }
     }

@@ -6,7 +6,6 @@ namespace Emulator
     {
         display_size = m_config.HEIGHT * m_config.WIDTH;
         DISPLAY = new bool[display_size];
-        uint8_t *font_ptr = &m_RAM[FONT_STARTING_POINT];
         const uint8_t font[] = {
             0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
             0x20, 0x60, 0x20, 0x20, 0x70, // 1
@@ -25,7 +24,7 @@ namespace Emulator
             0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
             0xF0, 0x80, 0xF0, 0x80, 0x80  // F
         };
-        std::memcpy(font_ptr, font, sizeof(font));
+        std::memcpy(&m_RAM[0], font, sizeof(font));
     }
 
     Memory::~Memory()
